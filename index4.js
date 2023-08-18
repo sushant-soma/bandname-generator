@@ -8,12 +8,13 @@ const app = express();
 const port = 3000;
 var bandName = "";
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 function bodyNameGenerator(req, res, next){
   bandName = req.body["street"] + req.body["pet"];
   next();
 }
 
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyNameGenerator);
 
 app.listen(port, () => {
