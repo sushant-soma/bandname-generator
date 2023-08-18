@@ -8,7 +8,13 @@ const app = express();
 const port = 3000;
 var bandName = "";
 
+function bodyNameGenerator(req, res, next){
+  bandName = req.body["street"] + req.body["pet"];
+  next();
+}
+
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyNameGenerator);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
@@ -19,6 +25,5 @@ app.get("/", (req, res) => {
 });
 
 app.post('/submit' , (req , res)=>{
-  bandName = req.body["street"] + req.body["pet"];
   res.send(`<h1>Band Name is: </h1><h2>${bandName}</h2>`);
 })
